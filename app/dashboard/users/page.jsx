@@ -51,7 +51,7 @@ const Users = async ({ searchParams }) => {
             <td className="p-2.5">Active</td>
             <td className="p-2.5">
               <div className="flex gap-2.5">
-                <Link href={"/"}>
+                <Link href={"/dashboard/users/1"}>
                   <button className="text-[color:var(--text)] cursor-pointer px-2.5 py-[5px] rounded-[5px] border-none bg-[teal]">
                     View
                   </button>
