@@ -1,11 +1,22 @@
 import prisma from "@/app/lib/prismaClient";
 import { NextResponse } from "next/server";
 
-export const fetchUsers = async () => {
+export const fetchUsers = async (q) => {
   try {
-    const UsersinDB = await prisma.user.findMany();
-
-    return NextResponse.json(UsersinDB);
+    if (q === "") {
+      const UsersinDB = await prisma.user.findMany();
+      return NextResponse.json(UsersinDB);
+    } else {
+      const UsersinDB = await prisma.user.findMany({
+        where: {
+          username: {
+            contains: q,
+            mode: "insensitive",
+          },
+        },
+      });
+      return NextResponse.json(UsersinDB);
+    }
   } catch (error) {
     return NextResponse.json({ message: "GET error", error }, { status: 500 });
   }

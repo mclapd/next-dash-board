@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Users = async ({ searchParams }) => {
+  const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-  const res = await fetchUsers();
+  const res = await fetchUsers(q);
   const users = await res.json();
 
   return (
@@ -47,7 +48,8 @@ const Users = async ({ searchParams }) => {
               </td>
               <td className="p-2.5">{user.email}</td>
               <td className="p-2.5">
-                {user.createdAt?.toString().slice(4, 16)}
+                {user.createdAt?.toString().slice(0, 10)}{" "}
+                {user.createdAt?.toString().slice(11, 16)}
               </td>
               <td className="p-2.5">{user.isAdmin ? "Admin" : "Client"}</td>
               <td className="p-2.5">{user.isActive ? "active" : "passive"}</td>
